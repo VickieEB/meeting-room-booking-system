@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "rooms")
+@Table(name = "rooms")
 @Entity
 public class Room extends BaseEntity{
 
