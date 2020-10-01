@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,13 +21,16 @@ import java.util.Set;
 @Entity
 public class Booking extends BaseEntity{
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @Column(name = "booked_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookeddate;
 
     @Column(name = "transaction_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate transDate;
 
     @Enumerated(value = EnumType.STRING)
