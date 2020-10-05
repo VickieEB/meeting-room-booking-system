@@ -35,4 +35,18 @@ public class Room extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "room")
     private Set<Booking> booking = new HashSet<>();
+
+    @Builder
+    public Room(Long id, String name, String description, Integer capacity, Double price, String location, Byte[] image, Status status, Set<Booking> booking) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+        this.price = price;
+        this.location = location;
+        this.image = image;
+        this.status = status;
+        this.booking = booking;
+    }
+
 }
