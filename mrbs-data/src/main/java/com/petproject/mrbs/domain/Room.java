@@ -25,7 +25,7 @@ public class Room extends BaseEntity{
     private Integer capacity;
 
     private Double price;
-    private String location;
+    private String address;
 
     @Lob
     private Byte[] image;
@@ -37,13 +37,13 @@ public class Room extends BaseEntity{
     private Set<Booking> booking = new HashSet<>();
 
     @Builder
-    public Room(Long id, String name, String description, Integer capacity, Double price, String location, Byte[] image, Status status, Set<Booking> booking) {
+    public Room(Long id, String name, String description, Integer capacity, Double price, String address, Byte[] image, Status status, Set<Booking> booking) {
         super(id);
         this.name = name;
         this.description = description;
         this.capacity = capacity;
         this.price = price;
-        this.location = location;
+        this.address = address;
         this.image = image;
         this.status = status;
         this.booking = booking;
