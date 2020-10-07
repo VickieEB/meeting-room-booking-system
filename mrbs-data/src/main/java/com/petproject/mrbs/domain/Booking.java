@@ -3,10 +3,7 @@ package com.petproject.mrbs.domain;
 
 import com.petproject.mrbs.domain.enums.Duration;
 import com.petproject.mrbs.domain.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,6 +17,22 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 public class Booking extends BaseEntity{
+
+    @Builder
+    public Booking(Long id,Room room, LocalDate bookeddate, LocalDate transDate, Duration duration, Set<BookedHours> bookedHours,
+                   Integer attendees, String note, String customerName, Double total, Status status) {
+        super(id);
+        this.room = room;
+        this.bookeddate = bookeddate;
+        this.transDate = transDate;
+        this.duration = duration;
+        this.bookedHours = bookedHours;
+        this.attendees = attendees;
+        this.note = note;
+        this.customerName = customerName;
+        this.total = total;
+        this.status = status;
+    }
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -46,12 +59,13 @@ public class Booking extends BaseEntity{
 
     //Todo: Create entity for Customers and link this properly
     @Column(name = "customer_id")
-    private String name;
+    private String customerName;
 
     private Double total;
 
     @Enumerated(value = EnumType.STRING)
     private Status status;
+
 
 
 
