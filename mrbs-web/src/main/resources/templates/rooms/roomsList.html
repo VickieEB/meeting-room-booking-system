@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Room List</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:30px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6 align-self-center">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2 class="card-title" th:text="'Room List'"> Rooms List</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(rooms)}">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Room Name</th>
+                                <th>Description</th>
+                                <th>Capacity</th>
+                                <th>Price</a></th>
+                                <th><a href="#"></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="room : ${rooms}">
+                                <td th:text="${room.getName()}"></td>
+                                <td th:text="${room.getDescription()}"></td>
+                                <td th:text="${room.getCapacity() + ' People'}"></td>
+                                <td th:text="${room.getPrice() + ' Per Hour'}"></td>
+                                <td><a class="btn btn-success" href="#" th:href="@{'/rooms/book'}">Book this Room</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
