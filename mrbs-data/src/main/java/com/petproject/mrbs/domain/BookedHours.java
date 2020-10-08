@@ -15,10 +15,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "booked_hours")
 @EqualsAndHashCode(exclude = {"booking"})
-public class BookedHours extends BaseEntity {
+public class BookedHours  extends BaseEntity {
 
-    @ManyToOne
-    private Booking booking;
+
 
     @Column(name = "from_time")
     private String fromTime;
@@ -26,5 +25,12 @@ public class BookedHours extends BaseEntity {
     @Column(name = "to_time")
     private String toTime;
 
+    @ManyToOne
+    private Booking booking;
+
+    public BookedHours(String fromTime, String toTime) {
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
 
 }

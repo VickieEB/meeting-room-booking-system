@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 public class Booking extends BaseEntity{
 
@@ -26,7 +27,11 @@ public class Booking extends BaseEntity{
         this.bookeddate = bookeddate;
         this.transDate = transDate;
         this.duration = duration;
-        this.bookedHours = bookedHours;
+
+        if(bookedHours != null){
+            this.bookedHours = bookedHours;
+        }
+
         this.attendees = attendees;
         this.note = note;
         this.customerName = customerName;
@@ -66,6 +71,11 @@ public class Booking extends BaseEntity{
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
+    public Booking addBookedHours(BookedHours bookedHour){
+        bookedHour.setBooking(this);
+        this.bookedHours.add(bookedHour);
+        return this;
+    }
 
 
 

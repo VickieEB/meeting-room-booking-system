@@ -68,22 +68,18 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .duration(Duration.HALFDAYMORNING).bookeddate(LocalDate.of(2020, Month.OCTOBER, 10))
                 .transDate(LocalDate.of(2020, Month.OCTOBER, 1))
                 .note("Please make available Ushers").status(Status.CONFIRMED).room(smallConference).build();
+        booking1.getBookedHours().add(new BookedHours("08:00", "12:00", booking1));
 
         bookingList.add(booking1);
-
-
 
         Booking booking2 = Booking.builder().id(2L).attendees(30).customerName("Rick Martins")
                 .duration(Duration.HOUR).bookeddate(LocalDate.of(2020, Month.DECEMBER, 12))
                 .transDate(LocalDate.of(2020, Month.SEPTEMBER, 15))
                 .note("What happens if we come with 2 more guests").status(Status.PENDING).room(panoramic).build();
 
-
+        booking2.addBookedHours(new BookedHours("08:00", "17:00"));
         bookingList.add(booking2);
         bookingRepository.saveAll(bookingList);
-
-//        booking1.getBookedHours().add(new BookedHours(booking1, "08:00", "12:00"));
-//        booking2.getBookedHours().add(new BookedHours(booking2, "08:00", "17:00"));
 
         return rooms;
 
