@@ -27,19 +27,19 @@
                             <thead>
                             <tr>
                                 <th>Room</th>
-                                <th>Description</th>
                                 <th>Capacity</th>
-                                <th>Price</a></th>
+                                <th>Booking</th>
+                                <th>Status</th>
                                 <th><a href="#"></a></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="room : ${rooms}">
                                 <td th:text="${room.getName()}"></td>
-                                <td th:text="${room.getDescription()}"></td>
-                                <td th:text="${room.getCapacity() + ' People'}"></td>
-                                <td th:text="${room.getPrice() + ' Per Hour'}"></td>
-                                <td><a class="btn btn-success" href="#" th:href="@{'/rooms/book'}">Book this Room</a></td>
+                                <td th:text="${room.getCapacity()}"></td>
+                                <td th:text="${room.getBooking().size()}"></td>
+                                <td th:text="${room.getStatus()}"></td>
+                                <td><a class="btn btn-default" href="#" th:href="@{'admin/rooms/edit'}"> <span class="glyphicon glyphicon-envelope"></span></a></td>
                             </tr>
                             </tbody>
                         </table>

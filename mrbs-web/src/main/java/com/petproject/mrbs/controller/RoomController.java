@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/rooms")
+
 public class RoomController {
 
     private final RoomService roomService;
@@ -16,9 +16,15 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping({"/list", "/index", "/"})
+    @GetMapping({"/rooms/list", "/rooms/index", "/rooms/"})
     public String listRooms(Model model){
         model.addAttribute("rooms", roomService.findAll());
         return "rooms/roomsList";
+    }
+
+    @GetMapping({"/admin/rooms/list", "/admin/rooms/index", "/admin/rooms/"})
+    public String adminRoomList(Model model){
+        model.addAttribute("rooms", roomService.findAll());
+        return "admin/rooms/roomsList";
     }
 }
