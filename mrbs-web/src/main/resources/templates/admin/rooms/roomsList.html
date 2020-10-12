@@ -8,38 +8,61 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+          crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container-fluid" style="margin-top:30px">
     <div class="row">
         <div class="col-md-6 col-md-offset-6 align-self-center">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-info">
                     <div class="row">
                         <div class="col-md-9">
-                            <h2 class="card-title" th:text="'Room List'"> Rooms List</h2>
+                            <h2 class="card-title" th:text="'Meeting Rooms'"> Meeting Rooms</h2>
+                            <h6 class="card-subtitle mb-1 text-muted">Below is a list of all meeting rooms. You can add and edit rooms, change their status and see all bookings for each room. </h6>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3 ml-md-3 mt-2">
+                        <a class="btn btn-light" href="#" th:href="@{'admin/rooms/add'}"> <i class="fas fa-plus"> Add Room</i></a>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="form-inline d-flex justify-content-center md-form form-sm active-purple-2 mt-2">
+                            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                                   aria-label="Search">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </form>
+                    </div>
+                </div>
                 <div class="card-body">
+
                     <div class="table-responsive" th:if="${not #lists.isEmpty(rooms)}">
                         <table class="table table-hover">
                             <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Room</th>
                                 <th>Capacity</th>
-                                <th>Booking</th>
+                                <th>Bookings</th>
                                 <th>Status</th>
+                                <th><a href="#"></a></th>
                                 <th><a href="#"></a></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="room : ${rooms}">
+                                <td><img src="../../static/images/meeting-room-2.png" width="70" height="70"></td>
                                 <td th:text="${room.getName()}"></td>
                                 <td th:text="${room.getCapacity()}"></td>
-                                <td th:text="${room.getBooking().size()}"></td>
+                                <td><a class="btn btn-link" href="#" th:href="@{admin/bookings/list/__${room.getId()}__}" th:text="${room.getBooking().size()}"></a> </td>
                                 <td th:text="${room.getStatus()}"></td>
-                                <td><a class="btn btn-default" href="#" th:href="@{'admin/rooms/edit'}"> <span class="glyphicon glyphicon-envelope"></span></a></td>
+                                <td><a class="btn btn-default" href="#" th:href="@{'admin/rooms/edit'}"> <i class="fas fa-edit"></i></a></td>
+                                <td><a class="btn btn-default" href="#" th:href="@{'admin/rooms/delete'}"> <i class="fas fa-trash-alt"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

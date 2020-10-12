@@ -42,23 +42,33 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Room smallConference = Room.builder().id(1L)
                 .name("Small Conference Room")
-                .description("The Workspace gives business and mobile travellers privacy to work undisturbed.")
+                .description("The workspace gives business and mobile travellers privacy to work undisturbed.")
                 .capacity(12)
                 .price(69.00)
-                .address("Osborne Road, Ikoyi, Lagos")
+                .address("Osborne Road, Ikoyi, Lagos.")
                 .status(Status.ACTIVE)
                 .build();
         rooms.add(smallConference);
 
         Room panoramic = Room.builder().id(2L)
                 .name("Panoramic Room")
-                .description("Situated in an Instantly recognised address, a short walk from Four Points Sheraton, Oniru")
+                .description("Situated in an instantly recognised address, a short walk from Four Points Sheraton, Oniru.")
                 .capacity(30)
                 .price(250.00)
-                .address("Oniru, Lagos")
+                .address("Oniru, Lagos.")
                 .status(Status.ACTIVE)
                 .build();
         rooms.add(panoramic);
+
+        Room largeConference = Room.builder().id(3L)
+                .name("Large Conference Room")
+                .description("This conference room is in Eko Hotels & Suites. It has a nice scenery and ambiance you will love.")
+                .capacity(100)
+                .price(580.00)
+                .address("Victoria Island, Lagos.")
+                .status(Status.ACTIVE)
+                .build();
+        rooms.add(largeConference);
 
         roomRepository.saveAll(rooms);
 
@@ -79,6 +89,16 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         booking2.addBookedHours(new BookedHours("08:00", "17:00"));
         bookingList.add(booking2);
+
+        Booking booking3 = Booking.builder().id(3L).attendees(25).customerName("Sade Wade")
+                .duration(Duration.HALFDAYAFTERNOON).bookeddate(LocalDate.of(2020, Month.OCTOBER, 20))
+                .transDate(LocalDate.of(2020, Month.SEPTEMBER, 11))
+                .note("We will need some extra features").status(Status.CONFIRMED).room(panoramic).build();
+        booking3.getBookedHours().add(new BookedHours("13:00", "17:00", booking3));
+
+        bookingList.add(booking3);
+
+
         bookingRepository.saveAll(bookingList);
 
         return rooms;

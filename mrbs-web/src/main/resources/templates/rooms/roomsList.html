@@ -8,50 +8,47 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+          crossorigin="anonymous">
 </head>
 <body>
-<div class="container-fluid" style="margin-top:30px">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-6 align-self-center">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h2 class="card-title" th:text="'Room List'"> Rooms List</h2>
-                        </div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title" th:text="'Meeting Rooms'"> Meeting Rooms</h2>
+            <p class="card-subtitle text-muted">Below is a list of all meeting rooms. You can view room details and book any room. </p>
+        </div>
+    </div>
+    <br/>
+    <div class="card-deck">
+            <div class="card" th:each="room : ${rooms}">
+                <div class="position-relative">
+                    <img class="card-img" src="https://www.spacesworks.com/wp-content/uploads/2019/10/Meeting-room-spaces_SpacesGrosspeterTower_Basel_Switzerland_LargeMeetingRoom_WithoutPeople2.jpg" alt="Meeting Room">
+                    <div class="card-img-overlay">
+                        <a href="#" class="btn btn-light btn-sm fas fa-map-marker-alt" th:text="${ ' ' + room.getAddress()}">Lagos, Nigeria</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(rooms)}">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Room</th>
-                                <th>Description</th>
-                                <th>Capacity</th>
-                                <th>Price</a></th>
-                                <th><a href="#"></a></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="room : ${rooms}">
-                                <td th:text="${room.getName()}"></td>
-                                <td th:text="${room.getDescription()}"></td>
-                                <td th:text="${room.getCapacity() + ' People'}"></td>
-                                <td th:text="${room.getPrice() + ' Per Hour'}"></td>
-                                <td><a class="btn btn-success" href="#" th:href="@{'/rooms/book'}">Book this Room</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                    <h4 class="card-title" th:text="${room.getName()}">Meeting Room</h4>
+                    <small class="text-muted cat">
+                        <i class="fas fa-users text-info"></i> <h6 th:text="${room.getCapacity() + ' people'}">12 People</h6>
+                        <i class="fas fa-money-check-alt text-info"></i><h6 th:text="${room.getPrice() + ' per hour'}"> $50 Per Hour</h6>
+                    </small>
+                    <p class="card-text" th:text="${room.getDescription()}">Our Meeting Rooms are always in the best locations</p>
+                    <a class="btn btn-info" href="#" th:href="@{rooms/book/__${room.getId()}__}">Book this Room</a>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                    <div class="views">Oct 20, 12:45PM </div>
+                    <div class="stats ml-md-0">
+                        <i class="far fa-lightbulb"></i> <span th:text="${room.getStatus()}"> Available</span>
                     </div>
 
                 </div>
-
             </div>
-        </div>
+
     </div>
 </div>
-
 </body>
 </html>
