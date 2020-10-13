@@ -59,6 +59,7 @@ class BookingServiceImplTest {
 
         assertNotNull(booking);
         assertEquals(1, booking.getId());
+        assertEquals("Small Conference Room", booking.getRoom().getName());
     }
 
     @Test
