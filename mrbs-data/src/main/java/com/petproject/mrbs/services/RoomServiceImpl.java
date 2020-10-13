@@ -20,7 +20,6 @@ public class RoomServiceImpl implements RoomService {
     public Set<Room> findAll() {
         Set<Room> rooms = new HashSet<>();
         roomRepository.findAll().forEach(rooms::add);
-
         return rooms;
     }
 

@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-body">
             <h2 class="card-title" th:text="'Meeting Rooms'"> Meeting Rooms</h2>
-            <p class="card-subtitle text-muted">Below is a list of all meeting rooms. You can view room details and book any room. </p>
+            <p class="card-subtitle text-muted">Below is a variety of meeting rooms. You can view room details and book these rooms for all of your occasions. </p>
         </div>
     </div>
     <br/>
@@ -37,7 +37,7 @@
                         <i class="fas fa-money-check-alt text-info"></i><h6 th:text="${room.getPrice() + ' per hour'}"> $50 Per Hour</h6>
                     </small>
                     <p class="card-text" th:text="${room.getDescription()}">Our Meeting Rooms are always in the best locations</p>
-                    <a class="btn btn-info" href="#" th:href="@{rooms/book/__${room.getId()}__}">Book this Room</a>
+                    <a class="btn btn-info" th:href="@{/rooms/book/__${room.getId()}__}">Book this Room</a>
                 </div>
                 <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
                     <div class="views">Oct 20, 12:45PM </div>

@@ -1,6 +1,7 @@
 package com.petproject.mrbs.services;
 
-import java.awt.print.Book;
+import com.petproject.mrbs.domain.Booking;
 
-public interface BookingService extends CrudService<Book, Long>{
+
+public interface BookingService extends CrudService<Booking, Long>{
 }
