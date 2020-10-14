@@ -1,5 +1,6 @@
 package com.petproject.mrbs.controller;
 
+import com.petproject.mrbs.domain.Room;
 import com.petproject.mrbs.services.RoomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,4 +26,12 @@ public class RoomController {
         model.addAttribute("rooms", roomService.findAll());
         return "admin/rooms/roomsList";
     }
+
+    @GetMapping("/admin/rooms/new")
+    public String newRoom(Model model){
+        model.addAttribute("room", new Room());
+        return "admin/rooms/roomform";
+    }
+
+
 }
