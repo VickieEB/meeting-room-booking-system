@@ -82,7 +82,7 @@
             <div class="col-md-3 form-group">
                 <label>Status:</label>
                 <select class="form-control" th:field="*{status}">
-                    <option th:each="roomStatus : ${T(com.petproject.mrbs.domain.enums.Status).values()}"
+                    <option th:each="roomStatus : ${T(com.petproject.mrbs.domain.enums.RoomStatus).values()}"
                             th:value="${roomStatus.name()}"
                             th:text="${roomStatus.name()}">
                 </select>

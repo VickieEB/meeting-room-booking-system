@@ -1,6 +1,6 @@
 package com.petproject.mrbs.domain;
 
-import com.petproject.mrbs.domain.enums.Status;
+import com.petproject.mrbs.domain.enums.RoomStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,13 +31,13 @@ public class Room extends BaseEntity{
     private Byte[] image;
 
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private RoomStatus status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "room")
     private Set<Booking> booking = new HashSet<>();
 
     @Builder
-    public Room(Long id, String name, String description, Integer capacity, Double price, String address, Byte[] image, Status status, Set<Booking> booking) {
+    public Room(Long id, String name, String description, Integer capacity, Double price, String address, Byte[] image, RoomStatus status, Set<Booking> booking) {
         super(id);
         this.name = name;
         this.description = description;

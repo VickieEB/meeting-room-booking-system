@@ -3,8 +3,9 @@ package com.petproject.mrbs.bootstrap;
 import com.petproject.mrbs.domain.BookedHours;
 import com.petproject.mrbs.domain.Booking;
 import com.petproject.mrbs.domain.Room;
+import com.petproject.mrbs.domain.enums.BookingStatus;
 import com.petproject.mrbs.domain.enums.Duration;
-import com.petproject.mrbs.domain.enums.Status;
+import com.petproject.mrbs.domain.enums.RoomStatus;
 import com.petproject.mrbs.repositories.BookingRepository;
 import com.petproject.mrbs.repositories.RoomRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .capacity(12)
                 .price(69.00)
                 .address("Osborne Road, Ikoyi, Lagos.")
-                .status(Status.ACTIVE)
+                .status(RoomStatus.ACTIVE)
                 .build();
         rooms.add(smallConference);
 
@@ -56,7 +57,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .capacity(30)
                 .price(250.00)
                 .address("Oniru, Lagos.")
-                .status(Status.ACTIVE)
+                .status(RoomStatus.ACTIVE)
                 .build();
         rooms.add(panoramic);
 
@@ -66,7 +67,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .capacity(100)
                 .price(580.00)
                 .address("Victoria Island, Lagos.")
-                .status(Status.ACTIVE)
+                .status(RoomStatus.ACTIVE)
                 .build();
         rooms.add(largeConference);
 
@@ -77,7 +78,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Booking booking1 = Booking.builder().id(1L).attendees(10).customerName("Lola Malo")
                 .duration(Duration.HALFDAYMORNING).bookeddate(LocalDate.of(2020, Month.OCTOBER, 10))
                 .transDate(LocalDate.of(2020, Month.OCTOBER, 1))
-                .note("Please make available Ushers").status(Status.CONFIRMED).room(smallConference).build();
+                .note("Please make available Ushers").status(BookingStatus.CONFIRMED).room(smallConference).build();
         booking1.getBookedHours().add(new BookedHours("08:00", "12:00", booking1));
 
         bookingList.add(booking1);
@@ -85,7 +86,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Booking booking2 = Booking.builder().id(2L).attendees(30).customerName("Rick Martins")
                 .duration(Duration.HOUR).bookeddate(LocalDate.of(2020, Month.DECEMBER, 12))
                 .transDate(LocalDate.of(2020, Month.SEPTEMBER, 15))
-                .note("What happens if we come with 2 more guests").status(Status.PENDING).room(panoramic).build();
+                .note("What happens if we come with 2 more guests").status(BookingStatus.PENDING).room(panoramic).build();
 
         booking2.addBookedHours(new BookedHours("08:00", "17:00"));
         bookingList.add(booking2);
@@ -93,7 +94,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Booking booking3 = Booking.builder().id(3L).attendees(25).customerName("Sade Wade")
                 .duration(Duration.HALFDAYAFTERNOON).bookeddate(LocalDate.of(2020, Month.OCTOBER, 20))
                 .transDate(LocalDate.of(2020, Month.SEPTEMBER, 11))
-                .note("We will need some extra features").status(Status.CONFIRMED).room(panoramic).build();
+                .note("We will need some extra features").status(BookingStatus.CONFIRMED).room(panoramic).build();
         booking3.getBookedHours().add(new BookedHours("13:00", "17:00", booking3));
 
         bookingList.add(booking3);

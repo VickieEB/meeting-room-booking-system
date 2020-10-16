@@ -1,8 +1,8 @@
 package com.petproject.mrbs.domain;
 
 
+import com.petproject.mrbs.domain.enums.BookingStatus;
 import com.petproject.mrbs.domain.enums.Duration;
-import com.petproject.mrbs.domain.enums.Status;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,7 +21,7 @@ public class Booking extends BaseEntity{
 
     @Builder
     public Booking(Long id,Room room, LocalDate bookeddate, LocalDate transDate, Duration duration, Set<BookedHours> bookedHours,
-                   Integer attendees, String note, String customerName, Double total, Status status) {
+                   Integer attendees, String note, String customerName, Double total, BookingStatus status) {
         super(id);
         this.room = room;
         this.bookeddate = bookeddate;
@@ -69,7 +69,7 @@ public class Booking extends BaseEntity{
     private Double total;
 
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private BookingStatus status;
 
     public Booking addBookedHours(BookedHours bookedHour){
         bookedHour.setBooking(this);
