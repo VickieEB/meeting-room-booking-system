@@ -1,12 +1,14 @@
 package com.petproject.mrbs.controller;
 
 import com.petproject.mrbs.domain.Room;
+import com.petproject.mrbs.services.ImageService;
 import com.petproject.mrbs.services.RoomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -15,9 +17,11 @@ public class RoomController {
 
     public static final String ADMIN_ROOMS_ROOMFORM = "admin/rooms/roomform";
     private final RoomService roomService;
+    //private final ImageService imageService;
 
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
+
     }
 
     @GetMapping({"/rooms/list", "/rooms/index", "/rooms/"})
@@ -39,12 +43,14 @@ public class RoomController {
     }
 
     @PostMapping("/admin/rooms/new")
-    public String saveNewRoom(@Valid Room room, BindingResult bindingResult, Model model){
+    public String saveNewRoom(@Valid Room room, BindingResult bindingResult, Model model, MultipartFile file){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("room", new Room());
             return ADMIN_ROOMS_ROOMFORM;
         }else{
+            //Byte[] imageBytes = imageService.processImageFile(file);
+            //room.setImage(imageBytes);
             roomService.save(room);
             return "redirect:/admin/rooms/list";
         }
