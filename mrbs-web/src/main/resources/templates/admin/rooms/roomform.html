@@ -19,7 +19,7 @@
 
     <h2>Add Meeting Room</h2>
     <div>
-        <form class="form-horizontal" th:object="${room}" th:action="@{/admin/rooms/new}" method="post">
+        <form class="form-horizontal" th:object="${room}" method="post" enctype="multipart/form-data" th:action="@{/admin/rooms/new}" >
 
             <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                 <p th:text="#{form.hasErrors}">Error Message</p>
@@ -110,7 +110,7 @@
             <div class="col-md-3 form-group">
                 <label class="control-label">Upload Room Image:</label>
                     <div class="custom-file">
-                        <input th:field="*{image}" type="file" class="form-control-file">
+                        <input type="file" th:field="*{image}" class="form-control-file">
                     </div>
 
             </div>

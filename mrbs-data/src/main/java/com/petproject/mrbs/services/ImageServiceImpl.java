@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
             log.error("Error Occured " + e.getMessage());
             e.printStackTrace();
         }
-
+        log.debug("Image Uploaded");
         return byteObject;
     }
 }

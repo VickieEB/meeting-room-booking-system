@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -17,11 +18,11 @@ public class RoomController {
 
     public static final String ADMIN_ROOMS_ROOMFORM = "admin/rooms/roomform";
     private final RoomService roomService;
-    //private final ImageService imageService;
+    private final ImageService imageService;
 
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomService roomService, ImageService imageService) {
         this.roomService = roomService;
-
+        this.imageService = imageService;
     }
 
     @GetMapping({"/rooms/list", "/rooms/index", "/rooms/"})
@@ -43,17 +44,17 @@ public class RoomController {
     }
 
     @PostMapping("/admin/rooms/new")
-    public String saveNewRoom(@Valid Room room, BindingResult bindingResult, Model model, MultipartFile file){
+    public String saveNewRoom(@Valid Room room, BindingResult bindingResult, Model model, @RequestParam("image") MultipartFile file){
 
-        if(bindingResult.hasErrors()){
-            model.addAttribute("room", new Room());
-            return ADMIN_ROOMS_ROOMFORM;
-        }else{
-            //Byte[] imageBytes = imageService.processImageFile(file);
-            //room.setImage(imageBytes);
+//        if(bindingResult.hasErrors()){
+//            model.addAttribute("room", new Room());
+//            return ADMIN_ROOMS_ROOMFORM;
+//        }else{
+            Byte[] imageBytes = imageService.processImageFile(file);
+            room.setImage(imageBytes);
             roomService.save(room);
             return "redirect:/admin/rooms/list";
-        }
+        //}
     }
 
 
