@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,6 +57,25 @@ public class RoomController {
             return "redirect:/admin/rooms/list";
         //}
     }
+
+
+    @GetMapping("/admin/rooms/{roomId}/edit")
+    public String loadRoomToEdit(@PathVariable Long roomId, Model model){
+        model.addAttribute("room", roomService.findById(roomId));
+        return ADMIN_ROOMS_ROOMFORM;
+    }
+
+    @PostMapping("/admin/rooms/{roomId}/edit")
+    public String editRoom(@Valid Room room, BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("room", room);
+            return ADMIN_ROOMS_ROOMFORM;
+        }else{
+            roomService.save(room);
+            return "redirect:/admin/rooms/list";
+        }
+    }
+
 
 
 }
