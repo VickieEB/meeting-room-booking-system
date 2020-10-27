@@ -3,6 +3,7 @@ package com.petproject.mrbs.controller;
 import com.petproject.mrbs.domain.Room;
 import com.petproject.mrbs.services.ImageService;
 import com.petproject.mrbs.services.RoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class RoomController {
 
@@ -74,6 +76,13 @@ public class RoomController {
             roomService.save(room);
             return "redirect:/admin/rooms/list";
         }
+    }
+
+    @GetMapping("/admin/rooms/{roomId}/delete")
+    public String deleteRoom(@PathVariable Long roomId){
+        roomService.deleteById(roomId);
+        log.debug("Room " + roomId  +  "Successfully Deleted.");
+        return "redirect:/admin/rooms/list";
     }
 
 

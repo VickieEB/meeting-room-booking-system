@@ -14,11 +14,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -104,6 +103,15 @@ class RoomControllerTest {
                 .andExpect(view().name("redirect:/admin/rooms/list"));
 
         verify(roomService).save(any());
+    }
+
+    @Test
+    void deleteRoom() throws Exception{
+        mockMvc.perform(get("/admin/rooms/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/rooms/list"));
+
+        verify(roomService, times(1)).deleteById(anyLong());
     }
 
     @Test
