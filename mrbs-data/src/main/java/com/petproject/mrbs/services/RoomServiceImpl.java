@@ -5,6 +5,7 @@ import com.petproject.mrbs.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -41,5 +42,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void deleteById(Long id) {
         roomRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Room> findByNameLowerCaseLike(String name) {
+        return roomRepository.findByNameLowerCaseLike(name);
     }
 }

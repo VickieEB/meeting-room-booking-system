@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -85,6 +86,24 @@ public class RoomController {
         return "redirect:/admin/rooms/list";
     }
 
+    @GetMapping("/admin/find/room")
+    public String findRoom(@RequestParam(value = "search", required = false) String name, BindingResult result, Model model){
+//        if(room.getName() == null){
+//            room.setName("");
+//        }
+
+        List<Room> roomList = roomService.findByNameLowerCaseLike(name);
+
+
+        if(roomList.isEmpty()){
+            result.rejectValue("name", "Room Not Found");
+            return "redirect:/admin/rooms/list";
+        }else {
+            model.addAttribute("rooms", roomList);
+            return "admin/rooms/roomsList";
+
+        }
+    }
 
 
 }
