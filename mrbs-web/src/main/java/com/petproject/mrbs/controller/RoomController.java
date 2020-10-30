@@ -37,6 +37,7 @@ public class RoomController {
 
     @GetMapping({"/admin/rooms/list", "/admin/rooms/index", "/admin/rooms/"})
     public String adminRoomList(Model model){
+        model.addAttribute("room", new Room());
         model.addAttribute("rooms", roomService.findAll());
         return "admin/rooms/roomsList";
     }
@@ -87,18 +88,21 @@ public class RoomController {
     }
 
     @GetMapping("/admin/find/room")
-    public String findRoom(@RequestParam(value = "search", required = false) String name, BindingResult result, Model model){
-//        if(room.getName() == null){
-//            room.setName("");
-//        }
+    public String findRoom(@Valid Room room, BindingResult result, Model model){
+        if(room.getName() == null){
+            room.setName("");
+        }
 
-        List<Room> roomList = roomService.findByNameLowerCaseLike(name);
+        List<Room> roomList = roomService.findByNameLowerCaseLike(room.getName());
+        log.debug("Size of search result " + roomList.size());
 
-
-        if(roomList.isEmpty()){
-            result.rejectValue("name", "Room Not Found");
-            return "redirect:/admin/rooms/list";
-        }else {
+        if(roomList.isEmpty() || roomList.size() == 0){
+            result.rejectValue("name", "notFount","Room Not Found");
+            return "admin/rooms/roomsList";
+        }else if(roomList.size() == 1){
+            room = roomList.get(0);
+            return "redirect:/admin/rooms/" + room.getId() + "/edit";
+        } else {
             model.addAttribute("rooms", roomList);
             return "admin/rooms/roomsList";
 
