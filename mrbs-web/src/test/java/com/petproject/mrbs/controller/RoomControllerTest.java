@@ -13,6 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Arrays;
+
 import static org.mockito.ArgumentMatchers.any;
 
 
@@ -112,6 +115,38 @@ class RoomControllerTest {
                 .andExpect(view().name("redirect:/admin/rooms/list"));
 
         verify(roomService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void findRoom() throws Exception {
+        mockMvc.perform(get("/admin/find/room"))
+                .andExpect(status().isOk())
+                //.andExpect(model().attributeExists("rooms"))
+                .andExpect(view().name("admin/rooms/roomsList"));
+        verify(roomService, times(1)).findByNameLowerCaseLike(anyString());
+    }
+
+    @Test
+    void findRoomReturnsOne() throws Exception{
+        when(roomService.findByNameLowerCaseLike(anyString()))
+                .thenReturn(Arrays.asList(Room.builder().id(1L).name("Test Room").price(20.0).build()));
+
+        mockMvc.perform(get("/admin/find/room"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/rooms/1/edit"));
+
+        verify(roomService, times(1)).findByNameLowerCaseLike(anyString());
+    }
+
+    @Test
+    void findRoomReturnsMany() throws Exception{
+        when(roomService.findByNameLowerCaseLike(anyString()))
+                .thenReturn(Arrays.asList(Room.builder().id(1L).name("Test Room").price(20.0).build(), Room.builder().id(2L).name("Test Room 2").build()));
+
+        mockMvc.perform(get("/admin/find/room"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("rooms"))
+                .andExpect(view().name("admin/rooms/roomsList"));
     }
 
     @Test
