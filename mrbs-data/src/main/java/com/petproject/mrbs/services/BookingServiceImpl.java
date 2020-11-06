@@ -2,10 +2,12 @@ package com.petproject.mrbs.services;
 
 import com.petproject.mrbs.domain.Booking;
 import com.petproject.mrbs.repositories.BookingRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
