@@ -1,9 +1,6 @@
 package com.petproject.mrbs.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +12,7 @@ import javax.persistence.*;
 @Entity
 public class DurationHours extends BaseEntity {
 
+
     @Column(name = "from_time")
     private String fromTime;
 
@@ -23,4 +21,13 @@ public class DurationHours extends BaseEntity {
 
     @OneToOne
     private DurationType durationType;
+
+
+    @Builder
+    public DurationHours(Long id, String fromTime, String toTime, DurationType durationType) {
+        super(id);
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.durationType = durationType;
+    }
 }

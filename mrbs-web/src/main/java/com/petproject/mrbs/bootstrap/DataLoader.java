@@ -1,13 +1,11 @@
 package com.petproject.mrbs.bootstrap;
 
-import com.petproject.mrbs.domain.BookedHours;
-import com.petproject.mrbs.domain.Booking;
-import com.petproject.mrbs.domain.DurationType;
-import com.petproject.mrbs.domain.Room;
+import com.petproject.mrbs.domain.*;
 import com.petproject.mrbs.domain.enums.BookingStatus;
 import com.petproject.mrbs.domain.enums.Duration;
 import com.petproject.mrbs.domain.enums.RoomStatus;
 import com.petproject.mrbs.repositories.BookingRepository;
+import com.petproject.mrbs.repositories.DurationHoursRepository;
 import com.petproject.mrbs.repositories.DurationTypeRepository;
 import com.petproject.mrbs.repositories.RoomRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,17 +25,19 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private RoomRepository roomRepository;
     private BookingRepository bookingRepository;
     private DurationTypeRepository durationTypeRepository;
+    private DurationHoursRepository durationHoursRepository;
 
-    public DataLoader(RoomRepository roomRepository, BookingRepository bookingRepository, DurationTypeRepository durationTypeRepository) {
+    public DataLoader(RoomRepository roomRepository, BookingRepository bookingRepository, DurationTypeRepository durationTypeRepository, DurationHoursRepository durationHoursRepository) {
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
         this.durationTypeRepository = durationTypeRepository;
+        this.durationHoursRepository = durationHoursRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         log.debug("Loading Bootstrap Data");
-        getDurationTypes();
+        setDurationTypesAndHours();
         getRooms();
         log.debug("Data Loaded");
 
@@ -110,8 +110,15 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     }
 
-    private List<DurationType> getDurationTypes(){
+    private List<DurationHours> setDurationTypesAndHours(){
+        /** TODO:
+         * This absolutely ties the backend to the frontend which is not proper
+         * In the future, have this automatically figured out in the front end.
+         */
+
+
         List<DurationType> durationTypes = new ArrayList<>();
+        List<DurationHours> durationHoursList = new ArrayList<>();
 
         DurationType hour = DurationType.builder().id(1L).name("hour").description("Hour").build();
         DurationType halfDay = DurationType.builder().id(2L).name("halfday").description("Half Day").build();
@@ -123,7 +130,27 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         durationTypeRepository.saveAll(durationTypes);
 
-        return durationTypes;
+        durationHoursList.add(DurationHours.builder().id(1L).durationType(hour).fromTime("8:00").toTime("9:00").build());
+        durationHoursList.add(DurationHours.builder().id(2L).durationType(hour).fromTime("9:00").toTime("10:00").build());
+        durationHoursList.add(DurationHours.builder().id(3L).durationType(hour).fromTime("10:00").toTime("11:00").build());
+        durationHoursList.add(DurationHours.builder().id(4L).durationType(hour).fromTime("11:00").toTime("12:00").build());
+        durationHoursList.add(DurationHours.builder().id(5L).durationType(hour).fromTime("12:00").toTime("13:00").build());
+        durationHoursList.add(DurationHours.builder().id(6L).durationType(hour).fromTime("13:00").toTime("14:00").build());
+        durationHoursList.add(DurationHours.builder().id(7L).durationType(hour).fromTime("14:00").toTime("15:00").build());
+        durationHoursList.add(DurationHours.builder().id(8L).durationType(hour).fromTime("15:00").toTime("16:00").build());
+        durationHoursList.add(DurationHours.builder().id(9L).durationType(hour).fromTime("16:00").toTime("17:00").build());
+
+        durationHoursList.add(DurationHours.builder().id(10L).durationType(halfDay).fromTime("08:00").toTime("12:00").build());
+        durationHoursList.add(DurationHours.builder().id(11L).durationType(halfDay).fromTime("13:00").toTime("17:00").build());
+
+        durationHoursList.add(DurationHours.builder().id(12L).durationType(fullDay).fromTime("08:00").toTime("17:00").build());
+
+        durationHoursRepository.saveAll(durationHoursList);
+
+
+        return durationHoursList;
     }
+
+
 
 }

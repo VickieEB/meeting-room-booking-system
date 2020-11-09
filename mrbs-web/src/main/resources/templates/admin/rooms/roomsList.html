@@ -61,7 +61,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="room : ${rooms}">
-                                <td><img class="img-responsive" src="../static/resources/images/meeting-room-2.png" th:src="@{/static/resources/images/meeting-room-2.png}" width="70" height="70"/></td>
+                                <td><img class="img-responsive" src="../static.resources/resources/images/meeting-room-2.png" th:src="@{/static.resources/resources/images/meeting-room-2.png}" width="70" height="70"/></td>
                                 <td th:text="${room.getName()}"></td>
                                 <td th:text="${room.getCapacity()}"></td>
                                 <td><a class="btn btn-link" href="#" th:href="@{admin/bookings/list/__${room.getId()}__}" th:text="${room.getBooking().size()}"></a> </td>
