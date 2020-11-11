@@ -28,10 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RoomControllerTest {
 
     @Mock
-    private RoomService roomService;
+    RoomService roomService;
 
     @InjectMocks
-    private RoomController roomController;
+    RoomController roomController;
 
     MockMvc mockMvc;
 
